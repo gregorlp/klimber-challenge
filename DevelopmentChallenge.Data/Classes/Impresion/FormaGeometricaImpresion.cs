@@ -19,30 +19,24 @@ namespace DevelopmentChallenge.Data.Classes
 {
     public class FormaGeometricaImpresion
     {
-        #region Idiomas
+        #region Idiomas (backward compatibility)
 
         public const int Castellano = 1;
-        public const int Ingles = 2;
+        public const int Ingles     = 2;
 
         #endregion
 
-        public static string Imprimir(List<Figura> figuras, int idioma)
+        public static string Imprimir(List<Figura> figuras, IIdioma idioma)
         {
             var sb = new StringBuilder();
 
             if (!figuras.Any())
             {
-                if (idioma == Castellano)
-                    sb.Append("<h1>Lista vacía de formas!</h1>");
-                else
-                    sb.Append("<h1>Empty list of shapes!</h1>");
+                sb.Append(idioma.ListaVacia());
             }
             else
             {
-                if (idioma == Castellano)
-                    sb.Append("<h1>Reporte de Formas</h1>");
-                else
-                    sb.Append("<h1>Shapes report</h1>");
+                sb.Append(idioma.Encabezado());
 
                 var totalFormas    = 0;
                 var totalArea      = 0m;
@@ -63,23 +57,27 @@ namespace DevelopmentChallenge.Data.Classes
                 }
 
                 sb.Append("TOTAL:<br/>");
-                sb.Append(totalFormas + " " + (idioma == Castellano ? "formas" : "shapes") + " ");
-                sb.Append((idioma == Castellano ? "Perimetro " : "Perimeter ") + totalPerimetro.ToString("#.##") + " ");
+                sb.Append(idioma.TotalFormas(totalFormas) + " ");
+                sb.Append(idioma.LabelPerimetro() + " " + totalPerimetro.ToString("#.##") + " ");
                 sb.Append("Area " + totalArea.ToString("#.##"));
             }
 
             return sb.ToString();
         }
 
-        private static string ObtenerLinea(int cantidad, decimal area, decimal perimetro, Figura figura, int idioma)
+        public static string Imprimir(List<Figura> figuras, int idioma)
+        {
+            IIdioma lang = idioma == Castellano
+                ? (IIdioma)new IdiomaEspanol()
+                : new IdiomaIngles();
+
+            return Imprimir(figuras, lang);
+        }
+
+        private static string ObtenerLinea(int cantidad, decimal area, decimal perimetro, Figura figura, IIdioma idioma)
         {
             if (cantidad > 0)
-            {
-                if (idioma == Castellano)
-                    return $"{cantidad} {figura.Descripcion(cantidad, idioma)} | Area {area:#.##} | Perimetro {perimetro:#.##} <br/>";
-
-                return $"{cantidad} {figura.Descripcion(cantidad, idioma)} | Area {area:#.##} | Perimeter {perimetro:#.##} <br/>";
-            }
+                return $"{cantidad} {figura.Descripcion(cantidad, idioma)} | Area {area:#.##} | {idioma.LabelPerimetro()} {perimetro:#.##} <br/>";
 
             return string.Empty;
         }

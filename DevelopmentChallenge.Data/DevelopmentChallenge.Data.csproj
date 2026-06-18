@@ -47,6 +47,9 @@
     <Compile Include="Classes\Figuras\Circulo.cs" />
     <Compile Include="Classes\Figuras\Cuadrado.cs" />
     <Compile Include="Classes\Figuras\Figura.cs" />
+    <Compile Include="Classes\Idiomas\IdiomaEspanol.cs" />
+    <Compile Include="Classes\Idiomas\IdiomaIngles.cs" />
+    <Compile Include="Classes\Idiomas\IIdioma.cs" />
     <Compile Include="Classes\Impresion\FormaGeometricaImpresion.cs" />
     <Compile Include="Classes\Figuras\Trapecio.cs" />
     <Compile Include="Classes\Figuras\TrianguloEquilatero.cs" />
