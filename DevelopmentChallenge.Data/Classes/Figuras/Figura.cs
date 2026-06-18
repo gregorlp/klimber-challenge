@@ -1,35 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DevelopmentChallenge.Data.Classes
+﻿namespace DevelopmentChallenge.Data.Classes
 {
     public abstract class Figura
     {
         public decimal _lado;
 
-        #region Idiomas
+        public abstract string Clave { get; }
 
-        public const int Castellano = 1;
-        public const int Ingles = 2;
+        public string Descripcion(int cantidad, IIdioma idioma)
+            => idioma.NombreFigura(Clave, cantidad);
 
-        #endregion
-
-        public virtual string Descripcion(int cantidad, int idioma)
-        {
-            return string.Empty;
-        }
-
-        public virtual decimal CalcularPerimetro()
-        {
-            return 0;
-        }
-
-        public virtual decimal CalcularArea()
-        {
-            return 0;
-        }
+        public virtual decimal CalcularPerimetro() => 0;
+        public virtual decimal CalcularArea()      => 0;
     }
 }
