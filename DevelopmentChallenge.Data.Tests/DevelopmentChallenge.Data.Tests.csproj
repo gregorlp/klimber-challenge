@@ -125,6 +125,7 @@
     <Compile Include="CirculoTests.cs" />
     <Compile Include="CuadradoTests.cs" />
     <Compile Include="DataTests.cs" />
+    <Compile Include="IdiomaItalianoTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrapecioTests.cs" />
     <Compile Include="TrianguloEquilateroTests.cs" />

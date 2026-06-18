@@ -49,6 +49,7 @@
     <Compile Include="Classes\Figuras\Figura.cs" />
     <Compile Include="Classes\Idiomas\IdiomaEspanol.cs" />
     <Compile Include="Classes\Idiomas\IdiomaIngles.cs" />
+    <Compile Include="Classes\Idiomas\IdiomaItaliano.cs" />
     <Compile Include="Classes\Idiomas\IIdioma.cs" />
     <Compile Include="Classes\Impresion\FormaGeometricaImpresion.cs" />
     <Compile Include="Classes\Figuras\Trapecio.cs" />
