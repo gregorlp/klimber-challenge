@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, 'feature/**' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore DevelopmentChallenge.sln
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build
+        run: msbuild DevelopmentChallenge.sln /p:Configuration=Release /p:Platform="Any CPU"
+
+      - name: Run tests
+        run: .\packages\NUnit.ConsoleRunner.3.22.0\tools\nunit3-console.exe DevelopmentChallenge.Data.Tests\bin\Release\DevelopmentChallenge.Data.Tests.dll
+
+      - name: Install OpenCover
+        run: nuget install OpenCover -Version 4.7.1221 -OutputDirectory tools
+
+      - name: Run coverage
+        run: |
+          .\tools\OpenCover.4.7.1221\tools\OpenCover.Console.exe `
+            -target:".\packages\NUnit.ConsoleRunner.3.22.0\tools\nunit3-console.exe" `
+            -targetargs:"DevelopmentChallenge.Data.Tests\bin\Release\DevelopmentChallenge.Data.Tests.dll" `
+            -filter:"+[DevelopmentChallenge.Data]*" `
+            -output:coverage.xml `
+            -register:user
+
+      - name: Install ReportGenerator
+        run: nuget install ReportGenerator -Version 5.3.11 -OutputDirectory tools
+
+      - name: Generate coverage report
+        run: |
+          .\tools\ReportGenerator.5.3.11\tools\net47\ReportGenerator.exe `
+            -reports:coverage.xml `
+            -targetdir:coverage-report `
+            -reporttypes:Html
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage-report/

@@ -10,7 +10,8 @@ namespace DevelopmentChallenge.Data.Classes
                 { "cuadrado",  new[] { "Quadrato",  "Quadrati"  } },
                 { "circulo",   new[] { "Cerchio",   "Cerchi"    } },
                 { "triangulo", new[] { "Triangolo", "Triangoli" } },
-                { "trapecio",  new[] { "Trapezio",  "Trapezi"   } },
+                { "trapecio",   new[] { "Trapezio",   "Trapezi"    } },
+                { "rectangulo", new[] { "Rettangolo", "Rettangoli" } },
             };
 
         public string ListaVacia()       => "<h1>Elenco di forme vuoto!</h1>";
