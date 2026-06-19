@@ -47,6 +47,7 @@
     <Compile Include="Classes\Figuras\Circulo.cs" />
     <Compile Include="Classes\Figuras\Cuadrado.cs" />
     <Compile Include="Classes\Figuras\Figura.cs" />
+    <Compile Include="Classes\Figuras\Rectangulo.cs" />
     <Compile Include="Classes\Idiomas\IdiomaEspanol.cs" />
     <Compile Include="Classes\Idiomas\IdiomaIngles.cs" />
     <Compile Include="Classes\Idiomas\IdiomaItaliano.cs" />
